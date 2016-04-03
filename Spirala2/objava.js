@@ -117,7 +117,6 @@ function Razvrstaj()
 	for( var j = 0; j < novosti.length; j++)
 		novosti[j].style.display = 'block';
 
-
 	if(izbor == "dan")
 	{	
 	    d.forEach(function(element, index)
@@ -125,7 +124,6 @@ function Razvrstaj()
 			if(element.getDate() != sada.getDate() || element.getMonth() != sada.getMonth() || element.getFullYear() != sada.getFullYear())
 				novosti[index].style.display = 'none';
 		});
-
 	}
 	else if(izbor == "sedmica")
 	{
@@ -155,6 +153,4 @@ function Razvrstaj()
 				novosti[index].style.display = 'none';
 		});
 	}
-	
-
 }
