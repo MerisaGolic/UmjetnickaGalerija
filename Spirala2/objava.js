@@ -1,14 +1,16 @@
 window.onload = function () 
 {
-	var vrijeme = document.getElementsByClassName("v");
+	var paragrafi = document.getElementsByClassName("v");
+	var vrijeme = document.getElementsByClassName("t");
 
     for (var i = 0; i < vrijeme.length; i++) 
 	{
-		var x = izracunajVrijeme(new Date(vrijeme[i].innerHTML));
+		var x = izracunajVrijeme(new Date(vrijeme[i].getAttribute("datetime")));
+		
 		if (x == "text") 
-			vrijeme[i].innerHTML = vrijeme[i].innerHTML;
+			paragrafi[i].innerHTML = String(vrijeme[i].getAttribute("datetime"));
 		else 
-			vrijeme[i].innerHTML = x;
+			paragrafi[i].innerHTML = x;
     }
 }
 
@@ -16,27 +18,28 @@ function izracunajVrijeme(v)
 {
 	var mjesec = v.getMonth();
 	var test = 0;
-	
-	if(mjesec == 3 || mjesec == 5 || mjesec == 8 || mjesec == 10) test = 1;
-	else if(mjesec == 1) test = 3;
-	else test = 2;
+
+	if(mjesec == 3 || mjesec == 5 || mjesec == 8 || mjesec == 10) test = 1; //30
+	else if(mjesec == 1) test = 3; //29
+	else test = 2; //31
 	
 	var protekloSekundi = Math.floor((new Date() - v) / 1000);
 	
 	if(protekloSekundi < 60)
 	{
-		return "Objavljeno prije par sekundi";
+		return "Objavljeno prije par sekundi.";
 	}
 	else if(protekloSekundi >= 60 && protekloSekundi < 3600)
 	{
 		var protekloMinuta = Math.floor(protekloSekundi/60);
 		
-		if(protekloMinuta%10 == 1)
-			return "Objavljeno prije " + protekloMinuta + " minutu.";
-		else if(protekloMinuta%10 < 5 && protekloMinuta%10 > 0)
-			return "Objavljeno prije " + protekloMinuta + " minute.";
-		else
+		if(protekloMinuta >=5 && protekloMinuta <= 20)
 			return "Objavljeno prije " + protekloMinuta + " minuta.";
+		else if(protekloMinuta%10 == 1)
+			return "Objavljeno prije " + protekloMinuta + " minutu.";
+		else if(protekloMinuta%10 < 5 && protekloMinuta%10 > 1)
+			return "Objavljeno prije " + protekloMinuta + " minute.";
+		
 		//minutu: 1, 21, 31, 41, 51
 		//minute: 2, 3, 4, 22, 23, 24
 		//minuta: 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ,16, 17, 18, 19, 20
@@ -47,12 +50,13 @@ function izracunajVrijeme(v)
 		//sat: 1, 21
 		//sata: 2, 3, 4, 22, 23
 		//sati: 5, 6, 7 , 8, 9 ,10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
-		if(protekloSati%10 == 1)
-			return "Objavljeno prije " + protekloSati + " sat.";
-		else if(protekloSati%10 < 5 && protekloSati%10 > 0)
-			return "Objavljeno prije " + protekloSati + " sata.";
-		else 
+		
+		if(protekloSati >=5 && protekloSati <= 20)
 			return "Objavljeno prije " + protekloSati+ " sati.";
+		else if(protekloSati%10 < 5 && protekloSati%10 > 1)
+			return "Objavljeno prije " + protekloSati + " sata.";
+		else if(protekloSati%10 == 1)
+			return "Objavljeno prije " + protekloSati + " sat.";
 	}
 	else if(protekloSekundi >= 86400 && protekloSekundi < 604800)
 	{
@@ -102,39 +106,55 @@ function Razvrstaj()
 {
 	var izbor = document.getElementById("dropdown").value;
     var novosti = document.getElementsByClassName("novost");
-	var vrijeme = document.getElementsByClassName("v");
-	var podstring = ["sek", "min", "sat", "dan", "sedmic", ":"];
+	var vrijeme = document.getElementsByClassName("t");
+	var sada = new Date();
+
+	var d = [];
 	
-	for(i = 0; i < novosti.length; i++)
-			novosti[i].style.display = 'block';
-		
+	for(var i = 0; i < vrijeme.length; i++)
+		d.push(new Date(vrijeme[i].getAttribute("datetime")));
+
+	for( var j = 0; j < novosti.length; j++)
+		novosti[j].style.display = 'block';
+
+
 	if(izbor == "dan")
-	{
-		
-		for(i = 0; i < vrijeme.length; i++)
-			if (vrijeme[i].innerHTML.indexOf(podstring[3]) > -1 || vrijeme[i].innerHTML.indexOf(podstring[4]) > -1 || vrijeme[i].innerHTML.indexOf(podstring[5]) > -1)
-				novosti[i].style.display = 'none';     
+	{	
+	    d.forEach(function(element, index)
+		{
+			if(element.getDate() != sada.getDate() || element.getMonth() != sada.getMonth() || element.getFullYear() != sada.getFullYear())
+				novosti[index].style.display = 'none';
+		});
+
 	}
 	else if(izbor == "sedmica")
 	{
-
-		for(i = 0; i < vrijeme.length; i++)
-			if(vrijeme[i].innerHTML.indexOf(podstring[4]) > -1 || vrijeme[i].innerHTML.indexOf(podstring[5]) > -1)
-				novosti[i].style.display = 'none';  
+		var danas = new Date();
+		danas.setMilliseconds(0);
+		danas.setSeconds(0);
+		danas.setMinutes(0);
+		danas.setHours(0);
+			
+		var pomocna = danas.getDay() || 7;
+		var ponedjeljak = danas.getTime()/1000;
+			
+		if(pomocna != 1)
+			ponedjeljak = ponedjeljak - pomocna*86400 + 86400; //koliko je proteklo sekundi od ponedjeljka do sadasnjeg trenutka
+		
+		d.forEach(function(element, index)
+		{	
+			if(element.getTime()/1000 < ponedjeljak)
+				novosti[index].style.display = 'none';
+		});
 	}
 	else if(izbor == "mjesec")
 	{
-		var mjesec = new Date().getMonth();
-		var godina = new Date().getYear();
-		
-		for(i = 0; i < vrijeme.length; i++)
-			if(vrijeme[i].innerHTML.indexOf(podstring[5]) > -1 && new Date(vrijeme[i].innerHTML).getMonth() != mjesec && new Date(vrijeme[i].innerHTML).getYear() == godina)
-				novosti[i].style.display = 'none';		
+		d.forEach(function(element, index)
+		{
+			if(element.getMonth() != sada.getMonth() || element.getFullYear() != sada.getFullYear())
+				novosti[index].style.display = 'none';
+		});
 	}
-	else if(izbor == "sve")
-	{
-		for(i = 0; i < novosti.length; i++)
-			novosti[i].style.display = 'block';
-	}
+	
 
 }
