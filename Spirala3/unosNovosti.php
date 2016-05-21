@@ -15,8 +15,10 @@
 			unset($_SESSION['username']);
 			unset($_SESSION["password"]);
 			session_destroy();
+			
 			$text = "Uspješno ste odjavljeni!";
-			header('Refresh: 1; URL = Stranica1.php');
+			header('Location: Stranica1.php');
+			
 		}
 			
 		if(isset($_POST['dodaj']))

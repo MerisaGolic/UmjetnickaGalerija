@@ -1,3 +1,34 @@
+<?php		
+	ob_start();
+	require_once('password.php');
+	$text = "";
+		
+	if(isset($_POST['prijava'])) {
+		$rezultat = file("CSV/login.csv");
+		$podaci = explode(",", $rezultat[0]);
+		$ime = $podaci[0];
+		$sifra = $podaci[1];
+
+		$hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
+		
+		if ($_POST['username'] == $ime && password_verify('admin', $hash)) {
+
+			session_start();
+			$_SESSION['valid'] = true;
+			$_SESSION['timeout'] = time();
+			$_SESSION['username'] = $ime;	
+			
+			$text = "Uspješno ste prijavljeni!";	
+			
+			header('location: unosNovosti.php');
+			
+		} else {
+			$text = "Pogrešni podaci!";
+		}
+	}
+	ob_end_clean();
+?>
+
 <!DOCTYPE HTML>
 <HTML>
 <HEAD>
@@ -8,27 +39,7 @@
 	<script src="Skripte/objava.js" type="text/javascript"></script>
 	<TITLE>VK art</TITLE>
 </HEAD>
-<BODY> 
-	<?php			
-		//file_put_contents("CSV/login.csv", "admin,".password_hash("admin", PASSWORD_BCRYPT));
-		$rezultat = file("CSV/login.csv");
-		$podaci = explode(",", $rezultat[0]);
-		$ime = $podaci[0];
-		$sifra = $podaci[1];
-		$text = "";						
-		if (isset($_POST['prijava']) && $_POST['username'] == $ime && password_verify($_POST['password'], $sifra)){
-			session_start();
-			$_SESSION['valid'] = true;
-			$_SESSION['timeout'] = time();
-			$_SESSION['username'] = $ime;	
-			$text = "Uspješno ste prijavljeni!";		
-			header('Refresh: 1; URL = unosNovosti.php');
-		}
-		else if(isset($_POST['prijava']) && ($_POST['username'] != $ime || !password_verify($_POST['password'], $sifra)))
-			$text = "Pogrešni podaci!";
-		
-		
-	?>
+<BODY>
     <div id="okvir">
 		<div id="zaglavlje"> 
 			<BR><BR><BR>
