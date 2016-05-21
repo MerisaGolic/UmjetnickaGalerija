@@ -1,0 +1,26 @@
+#naslov{
+	font-size:20px;
+}
+h3{
+	margin:0%;
+}
+table, th, td{
+	border:2px solid black;
+	border-collapse: collapse;
+}
+
+table{
+	margin-left: auto;
+	margin-right: auto;
+	width: 70%;
+	height: 40%;
+	text-align:center;
+}
+#prvi{
+	background-color: #000099;
+	color: white;
+}
+
+tr:nth-child(odd){
+	background-color: #99c2ff;
+}

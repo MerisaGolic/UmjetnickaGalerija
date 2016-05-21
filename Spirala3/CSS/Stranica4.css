@@ -1,0 +1,30 @@
+#naslov{
+	font-size:20px;	
+}
+#naslov ul{
+	text-align:left;
+	list-style-position: inside;
+	list-style-type: none;
+}
+h3{
+	margin:0px;
+}
+
+#naslov ul li{
+	display: list-item;
+	text-align:left;
+	padding:0px;
+}
+
+#naslov ul li a{
+	color: #000033;
+}
+
+#naslov ul li a:link{
+	display: list-item;
+}
+
+#naslov ul li a:hover{
+	list-style-image: url(rsz_1rsz_bullet-point.png);
+	text-decoration:none;
+}
