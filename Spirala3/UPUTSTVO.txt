@@ -8,3 +8,5 @@ BITNO: da broj telefona pocinje stvarnim pozivnim brojem izabrane drzave, i da p
 
 -Klikom na Dodaj novost, ukoliko je sve validno uneseno, novost se prikazuje na pocetnoj stranici, fokus ostaje na formi za dodavanje novosti
 -Klikom na Zavrsi vrši se logout i preusmjerenje na pocetnu stranicu
+
+-Novosti se u .csv dodaju vec sortirane po datumu i vremenu, pa se taj redoslijed i koristi na pocetnoj stranici za sortiranje po vremenu objave
