@@ -1,0 +1,10 @@
+Uputstvo: unosNovosti.php
+
+-Naslov novosti je pozeljno da bude napisan velikim pocetnim slovom
+-Slika se bira iz foldera Slike
+-Autor slike se ne mora unijeti (odnosi se na autora fotografije ili umjetnickog djela, a ne na autora novosti)
+-Prvo se izabira drzava iz dropDown-a, a zatim se unosi broj telefona.
+BITNO: da broj telefona pocinje stvarnim pozivnim brojem izabrane drzave, i da poslije budu samo brojevi 
+
+-Klikom na Dodaj novost, ukoliko je sve validno uneseno, novost se prikazuje na pocetnoj stranici, fokus ostaje na formi za dodavanje novosti
+-Klikom na Zavrsi vrši se logout i preusmjerenje na pocetnu stranicu

@@ -11,8 +11,8 @@
 
 		$hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
 		
-		if ($_POST['username'] == $ime && password_verify('admin', $hash)) {
-
+		if ($_POST['username'] == $ime && password_verify('admin', $hash)) 
+		{
 			session_start();
 			$_SESSION['valid'] = true;
 			$_SESSION['timeout'] = time();
@@ -22,9 +22,8 @@
 			
 			header('location: unosNovosti.php');
 			
-		} else {
-			$text = "Pogrešni podaci!";
-		}
+		} 
+		else $text = "Pogrešni podaci!";
 	}
 	ob_end_clean();
 ?>
@@ -90,13 +89,15 @@
 						<option value="sedmica">Novosti ove sedmice</option>
 						<option value="mjesec">Novosti ovog mjeseca</option>
 				</select>
-				<!--<form action="Stranica1.php" method="post">
-					<input id="dugme" type="submit" name="sortiranje" value="Sortiraj novosti abecedno">
-				</form>	-->
+				<BR>
+				<BR>
+				<form id="sortiranje" action="Stranica1.php" method="post">
+					<input id="dugme" type="submit" name="sortiranjeABC" value="Sortiraj novosti abecedno">
+					<input id="dugme" type="submit" name="sortiranjeVrijeme" value="Sortiraj po vremenu objavljivanja">
+				</form>
 			</div>
 			
 			<BR>
-			
 			<BR>		
 		
 			<div id="novosti">
@@ -104,6 +105,11 @@
 				
 					//ucitavanje novosti
 					$novosti = file("CSV/novosti.csv");
+					if (isset($_POST['sortiranjeABC']))
+						rsort($novosti);
+					if (isset($_POST['sortiranjeVrijeme']))
+						$novosti = file("CSV/novosti.csv");
+					
 					$brojac = 1;
 				
 					for ($i = sizeof($novosti)-1; $i >= 0; $i--)

@@ -8,10 +8,11 @@
 </HEAD>
 <BODY> 
 	<?php
+		session_start();
 		$text = "";
+		
 		if(isset($_POST['zavrsi']))
 		{
-			session_start();
 			unset($_SESSION['username']);
 			unset($_SESSION["password"]);
 			session_destroy();
@@ -21,7 +22,7 @@
 			
 		}
 			
-		if(isset($_POST['dodaj']))
+		if(isset($_POST['dodaj']) && $_SESSION['username'] == "admin")
 		{
 			if($_POST['naslov'] != "" && $_POST['slika'] != "" && preg_match('/\.(jpeg|jpg|gif|png)$/', $_POST['slika']) && $_POST['tekst'] != "" && $_POST['telefon'] != "" && $_POST['validTel'] == "T")
 			{			
@@ -40,9 +41,10 @@
 				$text = "Novost uspjesno dodana!";
 			
 			}
-			
 			else $text = "Niste unijeli sve podatke!";
 		}
+		else if($_SESSION['username'] != "admin")
+			$text = "Niste logovani! Ne možete dodavati novosti!";
 	?>
 	<form action="unosNovosti.php" method="post">
 				<h4>Popunite formu za dodavanje novosti!</h4>
