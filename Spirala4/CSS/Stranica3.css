@@ -1,0 +1,47 @@
+#naslov{
+	font-size:20px;
+	text-align:center;
+
+}
+h3{
+	margin:0%;
+	border-bottom: 1px solid black;
+
+}
+
+form {
+	margin: 0 auto;
+    margin-top:2%;
+    width:40%;
+	border:1px solid black;
+	border-radius:5px;
+	background-color: #1a8cff;
+}
+
+label {
+    display:block;
+    margin:0%;
+	text-align: center;
+	font-size:80%;
+}
+input, textarea {
+	width:50%;
+	height:10%;
+	border:1px solid #9999ff;
+	padding:2%;
+	margin-top:1%;
+	margin-bottom:1%;
+	border-radius:5px;
+}
+
+#dugme{
+    width:20%;
+    height:2%;
+    cursor:pointer;
+	margin-bottom:2%;
+	border-radius: 0px;
+}
+#dugme:hover {
+	color: blue;
+}
+
