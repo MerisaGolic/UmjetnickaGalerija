@@ -150,9 +150,11 @@
 					}
 					foreach($rezultat as $n)
 					{
+						date_default_timezone_set('Europe/Sarajevo');
 						$src = "Slike/".($n['slika']);
 						$id = $n['id'];
 						$datum = date("Y-m-d H:i:s", $n['vrijeme1']);
+						
 						$naslov = $n['naslov'];
 						$tekst = $n['tekst'];
 						$autor = $n['autor_slike'];

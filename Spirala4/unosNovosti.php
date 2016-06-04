@@ -48,7 +48,7 @@
 				foreach($rezultat as $a)
 					$id = $a['id'];
 					
-				$rezultat1 = $veza->exec("INSERT INTO novost (naslov, tekst, slika, autor_slike, autor_novosti, vrijeme, otvorena_za_komentare) VALUES ('$naslov', '$tekst', '$slika', '$autor', '$id', NOW(), '$kom')");
+				$rezultat1 = $veza->exec("INSERT INTO novost (naslov, tekst, slika, autor_slike, autor_novosti, vrijeme, otvorena_za_komentare) VALUES ('$naslov', '$tekst', '$slika', '$autor', '$id', UNIX_TIMESTAMP(), '$kom')");
 				
 				$text = "Novost uspjesno dodana!";
 			

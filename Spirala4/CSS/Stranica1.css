@@ -84,9 +84,13 @@ h5{
 	font-size: 15px;
 	margin-right: 1%;
 }
+.komentar{
+	color: #000066;
+}
 
 .podkomentar{
 	float: right;
 	font-size: 13px;
 	margin-right: 1%;
+	color: #4d4dff;
 }
